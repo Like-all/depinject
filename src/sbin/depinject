@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+while read package; do
+    echo `date`" $package" >> /var/log/depinsert.log
+
+    package_name=`dpkg-deb -f $package Package`
+
+    session_id=`uuidgen`
+
+    if [ -f /var/cache/apt/archives/lock ]; then
+        mv /var/cache/apt/archives/lock /var/cache/apt/archives/lock.$session_id
+    fi
+
+    for i in `ls -1 /etc/depinject/conf.d/*.control`; do
+        if grep "X-Depinject" $i | grep -oq $package_name; then
+            echo -e "\e[0;31mThere are some other dependencies injected by $i\e[0m"
+            intermediate_package_name=`grep "Package" $i | awk '{print $2}'`
+            cd /tmp/ && equivs-build $i
+            gdebi --n "/tmp/"$intermediate_package_name"_1.0_all.deb"
+            rm -f "/tmp/"$intermediate_package_name"_1.0_all.deb"
+        fi
+    done
+
+    if [ -f /var/cache/apt/archives/lock.$session_id ]; then
+        mv /var/cache/apt/archives/lock.$session_id /var/cache/apt/archives/lock
+    fi
+done

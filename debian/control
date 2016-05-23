@@ -1,0 +1,12 @@
+Source: depinject
+Section: admin
+Priority: optional
+Maintainer: Azer Abdullaev (Like All) <like-all@yandex.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/Like-all/depinject
+
+Package: depinject
+Architecture: any
+Depends: equivs, gdebi-core
+Description: dependency injection system
