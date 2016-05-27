@@ -1,2 +1,2 @@
 src/sbin/depinject usr/sbin
-src/apt.conf.d/80depinject etc/apt.conf.d
+src/apt.conf.d/80depinject etc/apt/apt.conf.d
