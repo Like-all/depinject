@@ -4,7 +4,7 @@
     "dependencies": [
         {
             "name": "screenfetch",
-            "version": "any"
+            "version": "3.0"
         },
         {
             "name": "cowsay",

@@ -7,6 +7,20 @@ import uuid
 import os
 import subprocess
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+print(bcolor.OKBLUE + "Dependency injection system is installed on your computer. There might be some additional dependencies installed among your packages" + bcolor.ENDC)
+
+cache = apt.Cache()
+
 for packageFile in sys.stdin:
     session_id = uuid.uuid4().urn[9:]
 
@@ -28,8 +42,22 @@ for packageFile in sys.stdin:
                 deps = json.load(data_file)
                 if injectablePackageName == deps['x-depinject']:
                     for dependency in deps['dependencies']:
-                        print("Installing " + dependency['name'])
-                        os.system("apt-get -y --force-yes install " + dependency['name'])
+                        candidate = cache[dependency['name']].candidate.version
+                        if dependency['version'] == "any":
+                            print(bcolors.WARNING +
+                                    "Installing " +
+                                    dependency['name'] +
+                                    " injected by "+
+                                    config + bcolors.ENDC)
+                            os.system("apt-get -y --force-yes install " + dependency['name'])
+                        else:
+                            print(bcolors.FAIL +
+                                    "Dependency " +
+                                    dependency['name'] +
+                                    " from " +
+                                    config +
+                                    " was not injected due to incompatibility of candidate's package version" + bcolors.ENDC)
 
-    os.rename('/var/cache/apt/archives/lock.' + session_id,
-        '/var/cache/apt/archives/lock')
+    if os.path.exists('/var/cache/apt/archives/lock' + session_id):
+        os.rename('/var/cache/apt/archives/lock.' + session_id,
+            '/var/cache/apt/archives/lock')
