@@ -1,2 +1,3 @@
 src/sbin/depinject usr/sbin
 src/apt.conf.d/80depinject etc/apt/apt.conf.d
+src/example/dumbfuck.json etc/depinject/conf.d

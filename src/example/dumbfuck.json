@@ -1,0 +1,14 @@
+{
+    "name": "Insert cowsay and screenfetch",
+    "x-depinject": "dumbfuck",
+    "dependencies": [
+        {
+            "name": "screenfetch",
+            "version": "any"
+        },
+        {
+            "name": "cowsay",
+            "version": "any"
+        }
+    ]
+}
