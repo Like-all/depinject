@@ -1,8 +1,14 @@
-depinject (0.2-3) UNRELEASED; urgency=medium
+depinject (0.2-4) UNRELEASED; urgency=medium
+
+  * Fix bcolors class
+
+ -- Azer Abdullaev (Like All) <like-all@yandex.com>  Thu, 02 Jun 2016 21:20:39 +0300
+
+depinject (0.2-3) unstable; urgency=medium
 
   * Verbose output and constraint checking stubs
 
- -- Azer Abdullaev (Like All) <like-all@yandex.com>  Thu, 02 Jun 2016 20:59:54 +0300
+ -- Azer Abdullaev (Like All) <like-all@yandex.com>  Thu, 02 Jun 2016 21:20:38 +0300
 
 depinject (0.2-2) unstable; urgency=medium
 

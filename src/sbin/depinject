@@ -17,7 +17,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-print(bcolor.OKBLUE + "Dependency injection system is installed on your computer. There might be some additional dependencies installed among your packages" + bcolor.ENDC)
+print(bcolors.OKBLUE + "Dependency injection system is installed on your computer. There might be some additional dependencies installed among your packages" + bcolors.ENDC)
 
 cache = apt.Cache()
 
