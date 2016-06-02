@@ -17,7 +17,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-print(bcolors.OKBLUE + "Dependency injection system is installed on your computer. There might be some additional dependencies installed among your packages" + bcolors.ENDC)
+print(bcolors.OKGREEN + "Dependency injection system is installed on your computer. There might be some additional dependencies installed among your packages" + bcolors.ENDC)
 
 cache = apt.Cache()
 
@@ -44,7 +44,7 @@ for packageFile in sys.stdin:
                     for dependency in deps['dependencies']:
                         candidate = cache[dependency['name']].candidate.version
                         if dependency['version'] == "any":
-                            print(bcolors.WARNING +
+                            print(bcolors.BOLD +
                                     "Installing " +
                                     dependency['name'] +
                                     " injected by "+

@@ -1,8 +1,14 @@
-depinject (0.2-4) UNRELEASED; urgency=medium
+depinject (0.2-5) UNRELEASED; urgency=medium
+
+  * Brighter warning colors
+
+ -- Azer Abdullaev (Like All) <like-all@yandex.com>  Thu, 02 Jun 2016 21:29:04 +0300
+
+depinject (0.2-4) unstable; urgency=medium
 
   * Fix bcolors class
 
- -- Azer Abdullaev (Like All) <like-all@yandex.com>  Thu, 02 Jun 2016 21:20:39 +0300
+ -- Azer Abdullaev (Like All) <like-all@yandex.com>  Thu, 02 Jun 2016 21:29:02 +0300
 
 depinject (0.2-3) unstable; urgency=medium
 
