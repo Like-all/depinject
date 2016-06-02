@@ -8,5 +8,5 @@ Homepage: https://github.com/Like-all/depinject
 
 Package: depinject
 Architecture: all
-Depends: equivs, gdebi-core
+Depends: python-apt
 Description: dependency injection system

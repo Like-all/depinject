@@ -1,27 +1,35 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python2
 
-while read package; do
-    echo `date`" $package" >> /var/log/depinsert.log
+import json
+import apt
+import sys
+import uuid
+import os
+import subprocess
 
-    package_name=`dpkg-deb -f $package Package`
+for packageFile in sys.stdin:
+    session_id = uuid.uuid4().urn[9:]
 
-    session_id=`uuidgen`
+    injectablePackageName = subprocess.check_output(['dpkg-deb',
+                                '-f',
+                                packageFile.split('\n')[0],
+                                'Package']).split('\n')[0]
 
-    if [ -f /var/cache/apt/archives/lock ]; then
-        mv /var/cache/apt/archives/lock /var/cache/apt/archives/lock.$session_id
-    fi
+    print("Injectable Package Name: " + injectablePackageName)
+    if os.path.exists('/var/cache/apt/archives/lock'):
+        os.rename('/var/cache/apt/archives/lock',
+            '/var/cache/apt/archives/lock.' + session_id)
 
-    for i in `ls -1 /etc/depinject/conf.d/*.control`; do
-        if grep "X-Depinject" $i | grep -oq $package_name; then
-            echo -e "\e[0;31mThere are some other dependencies injected by $i\e[0m"
-            intermediate_package_name=`grep "Package" $i | awk '{print $2}'`
-            cd /tmp/ && equivs-build $i
-            gdebi --n "/tmp/"$intermediate_package_name"_1.0_all.deb"
-            rm -f "/tmp/"$intermediate_package_name"_1.0_all.deb"
-        fi
-    done
+    confdir = '/etc/depinject/conf.d'
 
-    if [ -f /var/cache/apt/archives/lock.$session_id ]; then
-        mv /var/cache/apt/archives/lock.$session_id /var/cache/apt/archives/lock
-    fi
-done
+    for config in os.listdir(confdir):
+        if config.endswith('.json'):
+            with open(confdir + '/' + config) as data_file:
+                deps = json.load(data_file)
+                if injectablePackageName == deps['x-depinject']:
+                    for dependency in deps['dependencies']:
+                        print("Installing " + dependency['name'])
+                        os.system("apt-get -y --force-yes install " + dependency['name'])
+
+    os.rename('/var/cache/apt/archives/lock.' + session_id,
+        '/var/cache/apt/archives/lock')
