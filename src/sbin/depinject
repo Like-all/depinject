@@ -82,7 +82,7 @@ for packageFile in sys.stdin:
                                     dependency['name'] +
                                     " from " +
                                     config +
-                                    " was not injected due to incompatibility of candidate's package version" + bcolors.ENDC)
+                                    " was not injected due to incompatibility with candidate's package version" + bcolors.ENDC)
 
     if os.path.exists('/var/cache/apt/archives/lock' + session_id):
         os.rename('/var/cache/apt/archives/lock.' + session_id,
