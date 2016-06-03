@@ -2,6 +2,7 @@
 
 import json
 import apt
+import apt_pkg
 import sys
 import uuid
 import os
@@ -20,6 +21,7 @@ class bcolors:
 print(bcolors.OKGREEN + "Dependency injection system is installed on your computer. There might be some additional dependencies installed among your packages" + bcolors.ENDC)
 
 cache = apt.Cache()
+apt_pkg.init_system()
 
 for packageFile in sys.stdin:
     session_id = uuid.uuid4().urn[9:]
@@ -43,7 +45,31 @@ for packageFile in sys.stdin:
                 if injectablePackageName == deps['x-depinject']:
                     for dependency in deps['dependencies']:
                         candidate = cache[dependency['name']].candidate.version
+                        doInstall = False
                         if dependency['version'] == "any":
+                            doInstall = True
+                        else:
+                            constraint = dependency['version'].split(' ')[0]
+                            version = dependency['version'].split(' ')[1]
+
+                            vc = apt_pkg.version_compare(candidate, version)
+                            if ( constraint == '<=' and
+                                vc <= 0 ):
+                                doInstall = True
+                            elif ( constraint == '<' and
+                                vc < 0 ):
+                                doInstall = True
+                            elif ( constraint == '==' and
+                                vc == 0 ):
+                                doInstall = True
+                            elif ( constraint == '>' and
+                                vc > 0 ):
+                                doInstall = True
+                            elif ( constraint == '>=' and
+                                vc >= 0 ):
+                                doInstall = True
+
+                        if doInstall:
                             print(bcolors.BOLD +
                                     "Installing " +
                                     dependency['name'] +
