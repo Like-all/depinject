@@ -1,8 +1,14 @@
-depinject (0.2-8) UNRELEASED; urgency=medium
+depinject (0.3-1) UNRELEASED; urgency=medium
+
+  * Release 0.3
+
+ -- Azer Abdullaev (Like All) <like-all@yandex.com>  Fri, 01 Jul 2016 14:38:14 +0300
+
+depinject (0.2-8) unstable; urgency=medium
 
   * Generating manpage
 
- -- Azer Abdullaev (Like All) <like-all@yandex.com>  Fri, 01 Jul 2016 13:42:18 +0300
+ -- Azer Abdullaev (Like All) <like-all@yandex.com>  Fri, 01 Jul 2016 14:38:11 +0300
 
 depinject (0.2-7) unstable; urgency=medium
 

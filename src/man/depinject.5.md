@@ -6,7 +6,7 @@ depinject - Inject dependencies into third-party packages
 
 ## DESCRIPTION
 
-leicht is a simple multipurpose Telegram bot that can handle and log direct messages or multi-user chat.
+Depinject is a set of configs and scripts that provides dependency-injection facility for third-party packages with control-like json files.
 
 ## CONFIGURATION
 
