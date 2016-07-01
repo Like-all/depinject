@@ -1,6 +1,6 @@
 {
-    "name": "Insert cowsay and screenfetch",
-    "x-depinject": "dumbfuck",
+    "name": "Insert cowsay and screenfetch with lightspeed",
+    "x-depinject": "lightspeed",
     "dependencies": [
         {
             "name": "screenfetch",
